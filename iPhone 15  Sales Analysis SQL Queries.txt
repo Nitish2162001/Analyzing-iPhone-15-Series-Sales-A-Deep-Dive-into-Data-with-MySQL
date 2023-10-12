@@ -1,0 +1,90 @@
+-- 1)Find the Earliest Sale Date?
+
+SELECT MIN(sale_date)
+FROM sales;
+
+-- 2)Calculate Percentage of Total Sales?
+
+
+SELECT sale_date
+      ,total_price
+      ,100 *( total_price/SUM(total_price)OVER()) AS percentage_of_total_sales
+FROM sales;
+
+
+-- 3)Find Customers with Highest Total Spending?
+
+SELECT C.customer_id
+      ,C.customer_name
+      ,SUM(S.total_price) AS Total
+      ,RANK() OVER (ORDER BY SUM(S.total_price) DESC) AS
+      Highest_Total_Spending_Rank
+FROM sales AS S
+JOIN customers AS C USING (customer_id)
+GROUP BY C.customer_id
+        ,C.customer_name ;
+
+-- 4)Dense Ranking of Products by Star Rating?
+
+SELECT product_name
+      ,DENSE_RANK() OVER(ORDER BY star_rating DESC) AS star_rating_rank
+FROM sales;
+
+-- 5)Rank Products by Total Sales?
+
+SELECT product_name
+      ,SUM(total_price) AS Total_Sales
+      ,ROW_NUMBER() OVER(ORDER BY SUM(total_price) DESC) AS Product_rank
+FROM sales
+GROUP BY product_name;
+
+-- 6)Calculate the Price Difference with LEAD and LAG ?
+
+SELECT product_name 
+      ,sale_price
+      ,LAG(sale_price) OVER(ORDER BY product_id) AS previous_sale_price,
+       LEAD(sale_price) OVER (ORDER BY product_id) AS next_sale_price,
+       (sale_price - LAG(sale_price) OVER (ORDER BY product_id)) AS price_diff_with_previous,
+       (LEAD(sale_price) OVER (ORDER BY product_id) - sale_price) AS price_diff_with_next
+FROM products;
+
+-- 7)Find Customers Whose Names Have 'i' as the Third Letter?
+
+SELECT customer_id
+      ,customer_name
+FROM customers
+WHERE customer_name LIKE "__i%";
+
+-- 8)List Customers Who Made Multiple Purchases using CTE?
+
+WITH CustomerPurchases AS
+(
+  SELECT customer_name
+        ,COUNT(sale_id) AS Total_Purchases
+  FROM sales 
+  JOIN customers USING (customer_id)
+  GROUP BY customer_name
+)
+
+SELECT customer_name
+      ,Total_Purchases
+FROM  CustomerPurchases
+WHERE Total_Purchases > 1 ;
+
+-- 9)Categorize Products by Star Rating?
+
+SELECT product_name
+      ,star_rating
+      ,CASE 
+          WHEN star_rating >= 4.8 THEN 'Excellent'
+          WHEN star_rating >= 4.7 THEN "GOOD"
+          ELSE "AVERAGE"
+          END AS rating_category
+FROM products ;
+          
+-- 10)Find the Day of the Week for Each Sale?
+
+SELECT sale_id
+      ,sale_date
+      ,DAYNAME(sale_date) AS Day_of_the_Week 
+ FROM sales;

@@ -1,0 +1,100 @@
+-- Create the Customers table
+CREATE TABLE customers (
+   customer_id INT PRIMARY KEY,
+   customer_name VARCHAR(255),
+   email VARCHAR(255),
+   phone_number VARCHAR(20)
+);
+
+-- Create the Products table
+CREATE TABLE products (
+   product_id INT PRIMARY KEY,
+   product_name VARCHAR(255),
+   product_url VARCHAR(255),
+   brand VARCHAR(255),
+   sale_price DECIMAL(10, 2),
+   mrp DECIMAL(10, 2),
+   discount_percentage DECIMAL(5, 2),
+   number_of_ratings INT,
+   number_of_reviews INT,
+   upc VARCHAR(20),
+   star_rating DECIMAL(3, 2),
+   ram VARCHAR(10),
+   release_date DATE,
+   manufacturer VARCHAR(255)
+);
+
+-- Create the Sales table
+CREATE TABLE sales (
+   sale_id INT PRIMARY KEY,
+   product_id INT,
+   sale_date DATE,
+   customer_id INT,
+   quantity_sold INT,
+   total_price DECIMAL(10, 2),
+   product_name VARCHAR(255),
+   product_url VARCHAR(255),
+   brand VARCHAR(255),
+   sale_price DECIMAL(10, 2),
+   mrp DECIMAL(10, 2),
+   discount_percentage DECIMAL(5, 2),
+   number_of_ratings INT,
+   number_of_reviews INT,
+   upc VARCHAR(20),
+   star_rating DECIMAL(3, 2),
+   ram VARCHAR(10),
+   FOREIGN KEY (product_id) REFERENCES products(product_id),
+   FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Insert 15 sample values for iPhone 15
+INSERT INTO products (product_id, product_name, product_url, brand, sale_price, mrp, discount_percentage, number_of_ratings, number_of_reviews, upc, star_rating, ram)
+VALUES
+(1, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-g...', 'Apple', 69900, 79900, 12.52, 4500, 500, 'MOBEXRGV7EHHTGUH', 4.8, '8 GB'),
+(2, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-g...', 'Apple', 59900, 69900, 14.31, 3800, 400, 'MOBEXRGVAC6TJT4F', 4.7, '6 GB'),
+(3, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-g...', 'Apple', 49900, 59900, 16.69, 3200, 350, 'MOBEXRGVGETABXWZ', 4.6, '4 GB'),
+(4, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-silver-g...', 'Apple', 69900, 79900, 12.52, 4200, 480, 'MOBEXRGVMZWUHCBA', 4.8, '8 GB'),
+(5, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-silver-g...', 'Apple', 59900, 69900, 14.31, 3600, 420, 'MOBEXRGVNXBXTV45', 4.7, '6 GB'),
+(6, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-silver-g...', 'Apple', 49900, 59900, 16.69, 3000, 350, 'MOBEXRGVG7XGRJKY', 4.6, '4 GB'),
+(7, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-gold-g...', 'Apple', 69900, 79900, 12.52, 4300, 460, 'MOBEXRGVVTWWG7SJZ', 4.8, '8 GB'),
+(8, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-gold-g...', 'Apple', 59900, 69900, 14.31, 3700, 410, 'MOBEXRGVXPHGW8WT', 4.7, '6 GB'),
+(9, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-gold-g...', 'Apple', 49900, 59900, 16.69, 3100, 360, 'MOBEXRGV7EHHTGUH', 4.6, '4 GB'),
+(10, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-red-g...', 'Apple', 69900, 79900, 12.52, 4600, 520, 'MOBEXRGVCQ9N8PKF', 4.8, '8 GB'),
+(11, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-red-g...', 'Apple', 59900, 69900, 14.31, 4000, 480, 'MOBEXRGVKZR3YFAU', 4.7, '6 GB'),
+(12, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-red-g...', 'Apple', 49900, 59900, 16.69, 3400, 410, 'MOBEXRGVJQJPM4YJ', 4.6, '4 GB'),
+(13, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-green-g...', 'Apple', 69900, 79900, 12.52, 4800, 560, 'MOBEXRGVKJTXZZKQ', 4.8, '8 GB'),
+(14, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-green-g...', 'Apple', 59900, 69900, 14.31, 4300, 500, 'MOBEXRGVH8F3NVH6', 4.7, '6 GB'),
+(15, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-green-g...', 'Apple', 49900, 59900, 16.69, 3700, 440, 'MOBEXRGVKGWQC',4.9,'7 GB');
+
+
+-- Insert sample Indian names and phone numbers into the customers table
+INSERT INTO customers (customer_id, customer_name, email, phone_number)
+VALUES
+(1, 'Rajesh Kumar', 'rajeshkumar@example.com', '+91 9876543210'),
+(2, 'Anjali Reddy', 'anjalireddy@example.com', '+91 8765432109'),
+(3, 'Neha Gupta', 'nehagupta@example.com', '+91 7654321098'),
+(4, 'Amit Patel', 'amitpatel@example.com', '+91 6543210987'),
+(5, 'Sneha Singh', 'snehasingh@example.com', '+91 5432109876'),
+(6, 'Priya Sharma', 'priyasharma@example.com', '+91 4321098765'),
+(7, 'Arun Joshi', 'arunjoshi@example.com', '+91 3210987654'),
+(8, 'Deepak Choudhary', 'deepakchoudhary@example.com', '+91 2109876543'),
+(9, 'Nikhil Verma', 'nikhilverma@example.com', '+91 1098765432'),
+(10, 'Suman Malhotra', 'sumanmalhotra@example.com', '+91 0987654321'),
+(11, 'Sanjay Agarwal', 'sanjayagarwal@example.com', '+91 9876543211'),
+(12, 'Pooja Mehta', 'poojamehta@example.com', '+91 8765432110'),
+(13, 'Vikram Singh', 'vikramsingh@example.com', '+91 7654321109'),
+(14, 'Shalini Verma', 'shaliniverma@example.com', '+91 6543211098'),
+(15, 'Rahul Gupta', 'rahulgupta@example.com', '+91 5432101097');
+
+-- Insert sample sales data
+INSERT INTO sales (sale_id, product_id, sale_date, customer_id, quantity_sold, total_price, product_name, product_url, brand, sale_price, mrp, discount_percentage, number_of_ratings, number_of_reviews, upc, star_rating, ram)
+VALUES
+(1, 1, '2023-10-01', 1, 2, 139800, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-g...', 'Apple', 69900, 79900, 12.52, 4500, 500, 'MOBEXRGV7EHHTGUH', 4.8, '8 GB'),
+(2, 2, '2023-10-02', 2, 3, 179700, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-g...', 'Apple', 59900, 69900, 14.31, 3800, 400, 'MOBEXRGVAC6TJT4F', 4.7, '6 GB'),
+(3, 3, '2023-10-03', 3, 1, 49900, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-g...', 'Apple', 49900, 59900, 16.69, 3200, 350, 'MOBEXRGVGETABXWZ', 4.6, '4 GB'),
+(4, 1, '2023-10-04', 4, 2, 139800, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-silver-g...', 'Apple', 69900, 79900, 12.52, 4200, 480, 'MOBEXRGVMZWUHCBA', 4.8, '8 GB'),
+(5, 2, '2023-10-05', 5, 3, 179700, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-silver-g...', 'Apple', 59900, 69900, 14.31, 3600, 420, 'MOBEXRGVNXBXTV45', 4.7, '6 GB'),
+(6, 3, '2023-10-06', 1, 1, 49900, 'iPhone 15 Mini', 'https://www.flipkart.com/apple-iphone-15-mini-silver-g...', 'Apple', 49900, 59900, 16.69, 3000, 350, 'MOBEXRGVG7XGRJKY', 4.6, '4 GB'),
+(7, 1, '2023-10-07', 2, 2, 139800, 'iPhone 15 Pro', 'https://www.flipkart.com/apple-iphone-15-pro-gold-g...', 'Apple', 69900, 79900, 12.52, 4300, 460, 'MOBEXRGVVTWWG7SJZ', 4.8, '8 GB'),
+(8, 2, '2023-10-08', 3, 3, 179700, 'iPhone 15', 'https://www.flipkart.com/apple-iphone-15-gold-g...', 'Apple', 59900, 69900, 14.31, 3700, 410, 'MOBEXRGVXPHGW8WT',4.9,'9 GB');
+
